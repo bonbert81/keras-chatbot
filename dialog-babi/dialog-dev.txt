@@ -1,7 +1,7 @@
-1 hola  hola en que puedo ayudarte?
-2 quiero saber que es el contrato de trabajo?    dame un momento
-3 <SILENCE>    api_call contrato definicion
-1 buen dia    buen dia, en que puedo ayudarte?
-1 adios bye
-1 nos vemos hablamos mas tarde
-1 klk   hola
+1 hola	hola en que puedo ayudarte?
+2 quiero saber que es el contrato de trabajo?	dame un momento
+3 <SILENCE> 	api_call contrato definicion
+1 buen dia	buen dia, en que puedo ayudarte?
+1 adios 	bye
+1 nos vemos 	hablamos mas tarde
+1 klk	hola

@@ -1,5 +1,18 @@
-1 hola hola
-1 hey hola
-1 saludos hola
-1 klk hola
+1 hey
+1 saludos
+1 klk 
+1 hola
 1 api_call contrato definicion
+1 hola	
+1 hola en que puedo ayudarte?
+1 quiero saber que es el contrato de trabajo?
+1 dame un momento
+1 <SILENCE> api_call contrato definicion
+1 buen dia 
+1 buen dia, en que puedo ayudarte?
+1 adios
+1 bye
+1 nos vemos
+1 hablamos mas tarde
+1 klk
+1 hola
