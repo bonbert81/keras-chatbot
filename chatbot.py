@@ -217,22 +217,22 @@ if __name__ == "__main__":
     candidates_to_idx = {}
     tf.compat.v1.disable_eager_execution()
 
-    with open('dialog-babi/dialog-candidates.txt') as f:
+    with open('dialog-babi/dialog-babi-candidates.txt') as f:
         for i, line in enumerate(f):
             candidates_to_idx[line.strip().split(' ', 1)[1]] = i
             line = tokenize(line.strip())[1:]
             candidates.append(line)
 
     train_data = []
-    with open('dialog-babi/dialog-trn.txt') as f:
+    with open('dialog-babi/dialog-babi-task5-full-dialogs-trn.txt') as f:
         train_data = parse_dialogs_per_response(f.readlines(), candidates_to_idx)
 
     test_data = []
-    with open('dialog-babi/dialog-test.txt') as f:
+    with open('dialog-babi/dialog-babi-task5-full-dialogs-tst.txt') as f:
         test_data = parse_dialogs_per_response(f.readlines(), candidates_to_idx)
 
     val_data = []
-    with open('dialog-babi/dialog-dev.txt') as f:
+    with open('dialog-babi/dialog-babi-task5-full-dialogs-dev.txt') as f:
         val_data = parse_dialogs_per_response(f.readlines(), candidates_to_idx)
 
     chatbot = ChatBotWrapper(train_data, test_data, val_data,

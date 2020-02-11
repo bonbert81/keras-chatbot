@@ -5,3 +5,6 @@
 1 adios 	bye
 1 nos vemos 	hablamos mas tarde
 1 klk	hola
+1 hola, quiero saber que es el contrato de trabajo?	dame un momento
+2 <SILENCE>	el contrato de trabajo es  es un acuerdo entre el trabajador y el empresario
+3 <SILENCE> algo mas en que pueda ayudar?
