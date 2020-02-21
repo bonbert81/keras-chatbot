@@ -15,7 +15,7 @@
 3 Ya veo	¿Necesitas saber algo mas?
 4 Si	¿Hazme tu pregunta?.
 5 ¿Qué se necesita para que se desarrolle un contrato de trabajo?	Se necesitan tres elementos principales: a)  prestar un servicio;  b) que por ese servicio exista una remuneración; y  c) que el trabajador esté bajo la dependencia del empleador y que se encuentre subordinado al mismo. Para que exista un contrato, necesariamente se deben dar estos tres elementos, siendo el más importante el de la subordinación. Artículo 1 del CT.
-6 Gracias	Vuelve pronto.	
+6 Gracias	Vuelve pronto.
 
 1 klk	Saludos, ¿Como puedo ayudarte?
 2 ¿Qué se necesita para que se desarrolle un contrato de trabajo?	Se necesitan tres elementos principales: a)  prestar un servicio;  b) que por ese servicio exista una remuneración; y  c) que el trabajador esté bajo la dependencia del empleador y que se encuentre subordinado al mismo. Para que exista un contrato, necesariamente se deben dar estos tres elementos, siendo el más importante el de la subordinación. Artículo 1 del CT.
