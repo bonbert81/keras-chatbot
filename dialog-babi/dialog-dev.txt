@@ -1,8 +1,34 @@
-1 Hola	hola
+1 Hola	Hola, ¿Como puedo ayudarte?
 2 ¿Qué es un contrato de trabajo?	El contrato de trabajo es aquel por el cual una persona se obliga, mediante una retribución, a prestar un servicio personal a otra, bajo la dependencia y dirección inmediata o delegada de ésta. Artículo 1 del código de trabajo.
+3 Entiendo	¿Hay algo mas que quieras preguntarme?
+4 No	Espero haberte ayudado, Adios!
+5 Gracias
 
+1 Buenos dias	Buenos dias, ¿Como puedo ayudarte?
+2 Necesito saber ¿Qué es un contrato de trabajo?	El contrato de trabajo es aquel por el cual una persona se obliga, mediante una retribución, a prestar un servicio personal a otra, bajo la dependencia y dirección inmediata o delegada de ésta. Artículo 1 del código de trabajo.
+3 Entiendo, gracias	¿Hay algo mas que quieras preguntarme?
+4 No	Espero que la respuesta sea util, vuelve pronto.
+5 Gracias	
 
-1 ¿Qué se necesita para que se desarrolle un contrato de trabajo?	Se necesitan tres elementos principales: a)  prestar un servicio;  b) que por ese servicio exista una remuneración; y  c) que el trabajador esté bajo la dependencia del empleador y que se encuentre subordinado al mismo. Para que exista un contrato, necesariamente se deben dar estos tres elementos, siendo el más importante el de la subordinación. Artículo 1 del CT.
+1 Saludos	Hola, ¿Como puedo ayudarte?
+2 ¿Sabes qué es un contrato de trabajo?	El contrato de trabajo es aquel por el cual una persona se obliga, mediante una retribución, a prestar un servicio personal a otra, bajo la dependencia y dirección inmediata o delegada de ésta. Artículo 1 del código de trabajo.
+3 Ya veo	¿Necesitas saber algo mas?
+4 Si	¿Hazme tu pregunta?.
+5 ¿Qué se necesita para que se desarrolle un contrato de trabajo?	Se necesitan tres elementos principales: a)  prestar un servicio;  b) que por ese servicio exista una remuneración; y  c) que el trabajador esté bajo la dependencia del empleador y que se encuentre subordinado al mismo. Para que exista un contrato, necesariamente se deben dar estos tres elementos, siendo el más importante el de la subordinación. Artículo 1 del CT.
+6 Gracias	Vuelve pronto.	
+
+1 klk	Saludos, ¿Como puedo ayudarte?
+2 ¿Qué se necesita para que se desarrolle un contrato de trabajo?	Se necesitan tres elementos principales: a)  prestar un servicio;  b) que por ese servicio exista una remuneración; y  c) que el trabajador esté bajo la dependencia del empleador y que se encuentre subordinado al mismo. Para que exista un contrato, necesariamente se deben dar estos tres elementos, siendo el más importante el de la subordinación. Artículo 1 del CT.
+3 Ya veo	¿Que mas necesitas saber?
+4 No quiero nada mas	Espero haberte ayudado, hasta luego!
+5 Gracias
+
+1 Hola	Hola, ¿Como puedo ayudarte?
+2 ¿Como se desarrolla un contrato de trabajo?	Se necesitan tres elementos principales: a)  prestar un servicio;  b) que por ese servicio exista una remuneración; y  c) que el trabajador esté bajo la dependencia del empleador y que se encuentre subordinado al mismo. Para que exista un contrato, necesariamente se deben dar estos tres elementos, siendo el más importante el de la subordinación. Artículo 1 del CT.
+3 Ok	¿Algo mas que necesites saber?
+4 No quiero nada mas	Espero haberte ayudado, hasta luego!
+5 Gracias
+
 1 ¿El código de trabajo le aplica para los empleados del sector público y para los que trabajan de manera independiente?	No, no le aplica. En cuanto a los empleados públicos, los mismos están regidos por otra ley (ley de Función Pública. No.41-08)  y en cuanto a las personas que laboran de manera independiente, tampoco le aplica pues el código de trabajo regula solamente el trabajo subordinado, es decir, la relación entre un empleador y un trabajador que presente un servicio subordinado para éste. Principio III y art.5 del CT.
 1 ¿Un trabajador puede renunciar a sus propios derechos, como por ejemplo a sus vacaciones?	No, eso no es posible. Todos los derechos que están reconocidos en el código de trabajo a favor de los trabajadores no son sujeto a renuncia, es decir, que el trabajador debe hacer uso de ellos. Principio V y art. 38 del CT.
 1 ¿Un contrato de trabajo solo es válido si está por escrito?	No. El contrato de trabajo  no es el que consta por escrito, sino el que se ejecuta en los hechos, es decir, que puede pactarse de manera verbal y tiene el mismo valor que un contrato hecho por escrito. De igual forma, un trabajador puede exigirle a un empleador que el contrato de trabajo que mantienen se haga por escrito y si éste se niega, el mismo puede acudir al Ministerio de Trabajo para resolver la situación y si aún así el empleado no acude a dicha institución, el empleado podría demandar a la empresa. Principio IX y art.19 del CT.
