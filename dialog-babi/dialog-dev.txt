@@ -1,3 +1,58 @@
+1 Hola	Hola
+2 ¿Qué es un contrato de trabajo?	El contrato de trabajo es aquel por el cual una persona se obliga, mediante una retribución, a prestar un servicio personal a otra, bajo la dependencia y dirección inmediata o delegada de ésta. Artículo 1 del código de trabajo.
+3 ok	¿Alguna otra pregunta?
+4 no	<SILENCE>
+
+
+1 ¿Qué se necesita para que se desarrolle un contrato de trabajo?	Se necesitan tres elementos principales: a)  prestar un servicio;  b) que por ese servicio exista una remuneración; y  c) que el trabajador esté bajo la dependencia del empleador y que se encuentre subordinado al mismo. Para que exista un contrato, necesariamente se deben dar estos tres elementos, siendo el más importante el de la subordinación. Artículo 1 del CT.
+1 ¿El código de trabajo le aplica para los empleados del sector público y para los que trabajan de manera independiente?	No, no le aplica. En cuanto a los empleados públicos, los mismos están regidos por otra ley (ley de Función Pública. No.41-08)  y en cuanto a las personas que laboran de manera independiente, tampoco le aplica pues el código de trabajo regula solamente el trabajo subordinado, es decir, la relación entre un empleador y un trabajador que presente un servicio subordinado para éste. Principio III y art.5 del CT.
+1 ¿Un trabajador puede renunciar a sus propios derechos, como por ejemplo a sus vacaciones?	No, eso no es posible. Todos los derechos que están reconocidos en el código de trabajo a favor de los trabajadores no son sujeto a renuncia, es decir, que el trabajador debe hacer uso de ellos. Principio V y art. 38 del CT.
+1 ¿Un contrato de trabajo solo es válido si está por escrito?	No. El contrato de trabajo  no es el que consta por escrito, sino el que se ejecuta en los hechos, es decir, que puede pactarse de manera verbal y tiene el mismo valor que un contrato hecho por escrito. De igual forma, un trabajador puede exigirle a un empleador que el contrato de trabajo que mantienen se haga por escrito y si éste se niega, el mismo puede acudir al Ministerio de Trabajo para resolver la situación y si aún así el empleado no acude a dicha institución, el empleado podría demandar a la empresa. Principio IX y art.19 del CT.
+1 ¿Cuántos tipos de contratos de trabajo existen?	Contrato de trabajo por tiempo indefinido y por cierto tiempo (temporales). Dentro de los contratos temporales están los que se hacen para una obra o servicio determinado; los contratos estacionales (los que solo duren una parte del año); y los móviles u ocasionales. Artículos 25 al 35 del CT.
+
+
+1 ¿Cuándo puede celebrarse un contrato de trabajo por cierto tiempo?	Los contratos de trabajo solo pueden celebrarse por cierto tiempo si es conforme a la naturaleza de los servicios que se va prestar; si tiene por objeto la sustitución provisional de un trabajador en caso de licencia, vacaciones o cualquier impedimento temporal o si conviene a los intereses del trabajador. Art. 33 del CT.
+
+1 saludos	Saludos, en que le puedo ayudar?
+2 yo quiero saber ¿Los contratos por cierto tiempo o para una obra o servicio determinado pueden celebrarse de manera verbal?	No. Estos tipos de contratos temporales deben hacerse por escrito de manera obligatoria porque si no, pueden entenderse contratos de trabajo por tiempo indefinido. Art. 34 del CT.
+3 ok, entiendo. y que es el contrato ?	El contrato de trabajo es aquel por el cual una persona se obliga, mediante una retribución, a prestar un servicio personal a otra, bajo la dependencia y dirección inmediata o delegada de ésta. Artículo 1 del código de trabajo.
+4 gracias	siempre!
+
+1 hola	Saludos, en que le puedo ayudar?
+2 yo quiero saber ¿Los contratos por cierto tiempo o para una obra o servicio determinado pueden celebrarse de manera verbal?	No. Estos tipos de contratos temporales deben hacerse por escrito de manera obligatoria porque si no, pueden entenderse contratos de trabajo por tiempo indefinido. Art. 34 del CT.
+3 ok, entiendo. y ¿que es el contrato ?	El contrato de trabajo es aquel por el cual una persona se obliga, mediante una retribución, a prestar un servicio personal a otra, bajo la dependencia y dirección inmediata o delegada de ésta. Artículo 1 del código de trabajo.
+4 gracias	siempre!
+
+
+
+1 oye dime algo	En que puedo ayudarte?
+2 ¿Puedo trabajar de manera sucesiva para una empresa mediante varios contratos de trabajo para una obra o servicio determinado?	Es posible pero si se celebran de manera continua un contrato de obra o servicio determinado tras otro, puede entenderse que es un contrato por tiempo indefinido. Aunque se esperen dos meses para volver a trabajar con esa empresa y se continúa con esa práctica, de todos modos se entenderá que es un contrato por tiempo indefinido. Art. 31 del CT.
+3 ya, nitido	<SILENCE>
+
+1 dime algo	En que puedo ayudarte?
+2 ¿Puedo trabajar de manera sucesiva para una empresa mediante varios contratos de trabajo para una obra o servicio determinado?	Es posible pero si se celebran de manera continua un contrato de obra o servicio determinado tras otro, puede entenderse que es un contrato por tiempo indefinido. Aunque se esperen dos meses para volver a trabajar con esa empresa y se continúa con esa práctica, de todos modos se entenderá que es un contrato por tiempo indefinido. Art. 31 del CT.
+3 ok, nitido	<SILENCE>
+
+1 Hola	En que puedo ayudarte?
+2 ¿Puedo trabajar de manera sucesiva para una empresa mediante varios contratos de trabajo para una obra o servicio determinado?	Es posible pero si se celebran de manera continua un contrato de obra o servicio determinado tras otro, puede entenderse que es un contrato por tiempo indefinido. Aunque se esperen dos meses para volver a trabajar con esa empresa y se continúa con esa práctica, de todos modos se entenderá que es un contrato por tiempo indefinido. Art. 31 del CT.
+3 ok gracias	Siempre
+
+
+1 klk	Hola
+2 quiero preguntarte algo	¿que quieres saber?
+3 ¿Cuáles tipos de terminación de contrato de trabajo existen?	Un contrato de trabajo puede terminar con o sin responsabilidad para las partes. Terminan sin responsabilidad para las partes por varias causas: por mutuo consentimiento (cuando ambas partes acuerdan darlo por terminado); por la ejecución del contrato (contrato para una obra o servicio determinado); por la imposibilidad de ejecución (por ejemplo caso fortuito o de fuerza mayor). En cambio, un contrato de trabajo termina con responsabilidad para alguna de las partes con estos tres tipos de terminaciones: 1. Desahucio, 2. Despido y 3. Dimisión. Artículos 67, 68, 72, 73 y 74 del CT.
+4 ok gracias	siempre a la orden
+
+1 oye	Hola
+2 dime algo	¿que quieres saber?
+3 ¿Cuáles tipos de terminación de contrato de trabajo existen?	Un contrato de trabajo puede terminar con o sin responsabilidad para las partes. Terminan sin responsabilidad para las partes por varias causas: por mutuo consentimiento (cuando ambas partes acuerdan darlo por terminado); por la ejecución del contrato (contrato para una obra o servicio determinado); por la imposibilidad de ejecución (por ejemplo caso fortuito o de fuerza mayor). En cambio, un contrato de trabajo termina con responsabilidad para alguna de las partes con estos tres tipos de terminaciones: 1. Desahucio, 2. Despido y 3. Dimisión. Artículos 67, 68, 72, 73 y 74 del CT.
+4 ok	<SILENCE>
+
+1 saludos	Hola
+2 dime una cosa	¿que quieres saber?
+3 ¿Cuáles tipos de terminación de contrato de trabajo existen?	Un contrato de trabajo puede terminar con o sin responsabilidad para las partes. Terminan sin responsabilidad para las partes por varias causas: por mutuo consentimiento (cuando ambas partes acuerdan darlo por terminado); por la ejecución del contrato (contrato para una obra o servicio determinado); por la imposibilidad de ejecución (por ejemplo caso fortuito o de fuerza mayor). En cambio, un contrato de trabajo termina con responsabilidad para alguna de las partes con estos tres tipos de terminaciones: 1. Desahucio, 2. Despido y 3. Dimisión. Artículos 67, 68, 72, 73 y 74 del CT.
+4 ok	<SILENCE>
+
 1 Hola	Hola, ¿Como puedo ayudarte?
 2 ¿Qué es un contrato de trabajo?	El contrato de trabajo es aquel por el cual una persona se obliga, mediante una retribución, a prestar un servicio personal a otra, bajo la dependencia y dirección inmediata o delegada de ésta. Artículo 1 del código de trabajo.
 3 Entiendo	¿Hay algo mas que quieras preguntarme?
@@ -8,10 +63,10 @@
 2 Necesito saber ¿Qué es un contrato de trabajo?	El contrato de trabajo es aquel por el cual una persona se obliga, mediante una retribución, a prestar un servicio personal a otra, bajo la dependencia y dirección inmediata o delegada de ésta. Artículo 1 del código de trabajo.
 3 Entiendo, gracias	¿Hay algo mas que quieras preguntarme?
 4 No	Espero que la respuesta sea util, vuelve pronto.
-5 Gracias	
+5 Gracias
 
 1 Saludos	Hola, ¿Como puedo ayudarte?
-2 ¿Sabes qué es un contrato de trabajo?@	El contrato de trabajo es aquel por el cual una persona se obliga, mediante una retribución, a prestar un servicio personal a otra, bajo la dependencia y dirección inmediata o delegada de ésta. Artículo 1 del código de trabajo.
+2 ¿Sabes qué es un contrato de trabajo?	El contrato de trabajo es aquel por el cual una persona se obliga, mediante una retribución, a prestar un servicio personal a otra, bajo la dependencia y dirección inmediata o delegada de ésta. Artículo 1 del código de trabajo.
 3 Ya veo	¿Necesitas saber algo mas?
 4 Si	¿Hazme tu pregunta?.
 5 ¿Qué se necesita para que se desarrolle un contrato de trabajo?	Se necesitan tres elementos principales: a)  prestar un servicio;  b) que por ese servicio exista una remuneración; y  c) que el trabajador esté bajo la dependencia del empleador y que se encuentre subordinado al mismo. Para que exista un contrato, necesariamente se deben dar estos tres elementos, siendo el más importante el de la subordinación. Artículo 1 del CT.
@@ -79,5 +134,5 @@
 1 Hola	Saludos, ¿Como puedo ayudarte?
 2 ¿Cuáles tipos de terminación de contrato de trabajo existen?	Un contrato de trabajo puede terminar con o sin responsabilidad para las partes. Terminan sin responsabilidad para las partes por varias causas: por mutuo consentimiento (cuando ambas partes acuerdan darlo por terminado); por la ejecución del contrato (contrato para una obra o servicio determinado); por la imposibilidad de ejecución (por ejemplo caso fortuito o de fuerza mayor). En cambio, un contrato de trabajo termina con responsabilidad para alguna de las partes con estos tres tipos de terminaciones: 1. Desahucio, 2. Despido y 3. Dimisión. Artículos 67, 68, 72, 73 y 74 del CT.
 3 Entiendo, gracias	¿Hay algo mas que quieras preguntarme?
-4 Esta bien	@Espero que la respuesta sea util, vuelve pronto.
+4 Esta bien	Espero que la respuesta sea util, vuelve pronto.
 5 Gracias
