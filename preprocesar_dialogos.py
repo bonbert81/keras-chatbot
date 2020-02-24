@@ -1,35 +1,41 @@
 def parse_dialogs_per_response(lines):
-	data = []
-	facts_temp = []
-	utterance_temp = None
-	response_temp = None
-	# Parse line by line
-	for line in lines:
-		line = line.strip()
-		if line:
-			nid, line = line.split(' ', 1)
-			if '\t' in line:  # Has utterance and respone
-				utterance_temp, response_temp = line.split('\t')
-
-				data.append(str(response_temp).strip())
-	return data
-
-
-def llenar_archivos(lines):
+    data = []
+    facts_temp = []
+    utterance_temp = None
+    response_temp = None
+    # Parse line by line
     for line in lines:
         line = line.strip()
         if line:
             nid, line = line.split(' ', 1)
-            if '@' in line:  # Has utterance and respone
+            if '\t' in line:  # Has utterance and respone
                 utterance_temp, response_temp = line.split('\t')
+
+                data.append(str(response_temp).strip())
+    return data
+
+
+def llenar_archivos(lines, lista_archivos):
+    for archivo in lista_archivos:
+        with open(archivo, 'w', encoding='utf-8') as f:
+            for line in lines:
+                line = line.strip()
+                if line:
+                    nid, line = line.split(' ', 1)
+                    if '@' in line:  # Has utterance and respone
+                        line = str(line).replace('@', '\t')
+
+                    f.write(nid + ' ' + line + '\n')
 
     pass
 
 
 if __name__ == '__main__':
 
-    # with open('dialog-babi/dialogos_original.txt', encoding='utf-8') as f:
-    #     original = f.readlines()
+    archivos = ['dialog-babi/dialog-trn.txt', 'dialog-babi/dialog-test.txt', 'dialog-babi/dialog-dev.txt']
+    with open('dialog-babi/dialogos_original.txt', encoding='utf-8') as f:
+        original = f.readlines()
+        llenar_archivos(original, archivos)
 
     with open('dialog-babi/dialog-trn.txt', encoding='utf-8') as f:
         cand_trn = parse_dialogs_per_response(f.readlines())
