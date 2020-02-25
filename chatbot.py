@@ -239,7 +239,7 @@ if __name__ == "__main__":
                              candidates, candidates_to_idx,
                              memory_size=50,
                              batch_size=32,
-                             learning_rate=0.01,
+                             learning_rate=0.999,
                              evaluation_interval=10,
                              hops=3,
                              epochs=200,

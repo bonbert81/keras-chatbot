@@ -1,8 +1,11 @@
 import re
+from stop_words import get_stop_words
 
 
 def tokenize(sent):
-    stop_words = {"a", "an", "the"}
+    es = get_stop_words('spanish')
+    stop_words = set(es)
+    # stop_words = [stop_words.add(p) for p in es]
     sent = sent.lower()
     if sent == '<silence>':
         return [sent]
