@@ -30,9 +30,9 @@ def llenar_archivos(lines, lista_archivos):
 
 if __name__ == '__main__':
 
-    archivos = ['dialog-babi/dialog-trn.txt', 'dialog-babi/dialog-test.txt', 'dialog-babi/dialog-dev.txt']
-    with open('dialog-babi/dialogos_original.txt', encoding='utf-8') as f:
-        llenar_archivos(f.readlines(), archivos)
+    # archivos = ['dialog-babi/dialog-trn.txt', 'dialog-babi/dialog-test.txt', 'dialog-babi/dialog-dev.txt']
+    # with open('dialog-babi/dialogos_original.txt', encoding='utf-8') as f:
+    #     llenar_archivos(f.readlines(), archivos)
 
     with open('dialog-babi/dialog-trn.txt', encoding='utf-8') as f:
         cand_trn = parse_dialogs_per_response(f.readlines())
