@@ -239,10 +239,10 @@ if __name__ == "__main__":
                              candidates, candidates_to_idx,
                              memory_size=50,
                              batch_size=32,
-                             learning_rate=0.999,
+                             learning_rate=0.0168,
                              evaluation_interval=10,
                              hops=3,
-                             epochs=200,
+                             epochs=100,
                              embedding_size=50)
     chatbot.train()
     chatbot.test()
