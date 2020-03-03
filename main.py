@@ -5,6 +5,8 @@ import numpy as np
 import tensorflow as tf
 import pickle
 from tensorflow.keras import layers, activations, models, preprocessing, utils
+from gensim.models import Word2Vec
+import re
 
 print('tensor version {}'.format(tf.version.VERSION))
 
@@ -14,6 +16,7 @@ files_list = os.listdir(dir_path + os.sep)
 questions = list()
 resp = list()
 answers = list()
+vocab = []
 
 print('Archivos a entrenar: {}'.format(files_list))
 for filepath in files_list:
@@ -21,8 +24,17 @@ for filepath in files_list:
     stream = open(dir_path + os.sep + filepath, 'r')
     reader = csv.reader(stream, delimiter=",")
     for i, line in enumerate(reader):
-        questions.append(line[1])
-        resp.append(line[2])
+        pregunta = line[1]
+        pregunta = pregunta.lower()
+        pregunta = re.sub( '[^a-zA-Z]', ' ', pregunta )
+      
+
+        res = line[2]
+        res = res.lower()
+        res = re.sub( '[^a-zA-Z]', ' ', res )
+      
+        questions.append(pregunta)
+        resp.append(res)
         # print('line: {}'.format(line[1]))
         # print('line[{}] = {}'.format(i, line))
 
@@ -37,10 +49,41 @@ for i in range(len(answers_with_tags)):
     answers.append('<START> ' + answers_with_tags[i] + ' <END>')
 
 
+
 tokenizer = preprocessing.text.Tokenizer()
 tokenizer.fit_on_texts(questions + answers)
 VOCAB_SIZE = len(tokenizer.word_index)+1
 print('vocab size : {}'.format(VOCAB_SIZE))
+
+for word in tokenizer.word_index:
+    if 'mediante' in word:
+        print('aqui vocab' )
+    vocab.append( word )
+
+def tokenize( sentences ):
+    tokens_list = []
+    vocabulary = []
+    for sentence in sentences:
+        sentence = sentence.lower()
+        sentence = re.sub( '[^a-zA-Z]', ' ', sentence )
+        tokens = sentence.split()
+        vocabulary += tokens
+        tokens_list.append( tokens )
+
+    for i,tok in enumerate( tokens_list):
+        if tok == 'mediante':
+            print('aqui')
+    return tokens_list , vocabulary
+
+p = tokenize( questions + answers )
+model = Word2Vec( p[0] ) 
+
+embedding_matrix = np.zeros( ( VOCAB_SIZE , 100 ) )
+for i in range( len( tokenizer.word_index ) ):
+    try:
+        embedding_matrix[ i ] = model[ vocab[i] ]
+    except KeyError as identifier:
+        print('palabra no en vocab: {}'.format(identifier))
 
 # encoder_input_data
 tokenized_questions = tokenizer.texts_to_sequences(questions)
@@ -133,27 +176,25 @@ def str_to_tokens(sentence: str):
 enc_model, dec_model = make_inference_models()
 
 for _ in range(10):
-    states_values = enc_model.predict(
-        str_to_tokens(input('Enter question : ')))
-    empty_target_seq = np.zeros((1, 1))
+    states_values = enc_model.predict( str_to_tokens( input( 'Enter question : ' ) ) )
+    empty_target_seq = np.zeros( ( 1 , 1 ) )
     empty_target_seq[0, 0] = tokenizer.word_index['start']
     stop_condition = False
     decoded_translation = ''
-    while not stop_condition:
-        dec_outputs, h, c = dec_model.predict(
-            [empty_target_seq] + states_values)
-        sampled_word_index = np.argmax(dec_outputs[0, -1, :])
+    while not stop_condition :
+        dec_outputs , h , c = dec_model.predict([ empty_target_seq ] + states_values )
+        sampled_word_index = np.argmax( dec_outputs[0, -1, :] )
         sampled_word = None
-        for word, index in tokenizer.word_index.items():
-            if sampled_word_index == index:
-                decoded_translation += ' {}'.format(word)
+        for word , index in tokenizer.word_index.items() :
+            if sampled_word_index == index :
+                decoded_translation += ' {}'.format( word )
                 sampled_word = word
-
+        
         if sampled_word == 'end' or len(decoded_translation.split()) > maxlen_answers:
             stop_condition = True
+            
+        empty_target_seq = np.zeros( ( 1 , 1 ) )  
+        empty_target_seq[ 0 , 0 ] = sampled_word_index
+        states_values = [ h , c ] 
 
-        empty_target_seq = np.zeros((1, 1))
-        empty_target_seq[0, 0] = sampled_word_index
-        states_values = [h, c]
-
-    print(decoded_translation)
+    print( decoded_translation )
