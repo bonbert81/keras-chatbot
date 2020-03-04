@@ -1,4 +1,3 @@
-
 import os
 import csv
 import numpy as np
@@ -26,13 +25,12 @@ for filepath in files_list:
     for i, line in enumerate(reader):
         pregunta = line[1]
         pregunta = pregunta.lower()
-        pregunta = re.sub( '[^a-zA-Z]', ' ', pregunta )
-      
+        pregunta = re.sub('[^a-zA-Z]', ' ', pregunta)
 
         res = line[2]
         res = res.lower()
-        res = re.sub( '[^a-zA-Z]', ' ', res )
-      
+        res = re.sub('[^a-zA-Z]', ' ', res)
+
         questions.append(pregunta)
         resp.append(res)
         # print('line: {}'.format(line[1]))
@@ -48,40 +46,40 @@ for i in range(len(resp)):
 for i in range(len(answers_with_tags)):
     answers.append('<START> ' + answers_with_tags[i] + ' <END>')
 
-
-
 tokenizer = preprocessing.text.Tokenizer()
 tokenizer.fit_on_texts(questions + answers)
-VOCAB_SIZE = len(tokenizer.word_index)+1
+VOCAB_SIZE = len(tokenizer.word_index) + 1
 print('vocab size : {}'.format(VOCAB_SIZE))
 
 for word in tokenizer.word_index:
     if 'mediante' in word:
-        print('aqui vocab' )
-    vocab.append( word )
+        print('aqui vocab')
+    vocab.append(word)
 
-def tokenize( sentences ):
+
+def tokenize(sentences):
     tokens_list = []
     vocabulary = []
     for sentence in sentences:
         sentence = sentence.lower()
-        sentence = re.sub( '[^a-zA-Z]', ' ', sentence )
+        sentence = re.sub('[^a-zA-Z]', ' ', sentence)
         tokens = sentence.split()
         vocabulary += tokens
-        tokens_list.append( tokens )
+        tokens_list.append(tokens)
 
-    for i,tok in enumerate( tokens_list):
+    for i, tok in enumerate(tokens_list):
         if tok == 'mediante':
             print('aqui')
-    return tokens_list , vocabulary
+    return tokens_list, vocabulary
 
-p = tokenize( questions + answers )
-model = Word2Vec( p[0] ) 
 
-embedding_matrix = np.zeros( ( VOCAB_SIZE , 100 ) )
-for i in range( len( tokenizer.word_index ) ):
+p = tokenize(questions + answers)
+model = Word2Vec(p[0])
+
+embedding_matrix = np.zeros((VOCAB_SIZE, 100))
+for i in range(len(tokenizer.word_index)):
     try:
-        embedding_matrix[ i ] = model[ vocab[i] ]
+        embedding_matrix[i] = model[vocab[i]]
     except KeyError as identifier:
         print('palabra no en vocab: {}'.format(identifier))
 
@@ -116,7 +114,7 @@ for i in range(len(tokenized_answers)):
     np.save('dec_in_data.npy', decoder_input_data)
     np.save('dec_tar_data.npy', decoder_output_data)
 
-encoder_inputs = tf.keras.layers.Input(shape=(None, ))
+encoder_inputs = tf.keras.layers.Input(shape=(None,))
 encoder_embedding = tf.keras.layers.Embedding(
     VOCAB_SIZE, 200, mask_zero=True)(encoder_inputs)
 encoder_outputs, state_h, state_c = tf.keras.layers.LSTM(
@@ -136,17 +134,18 @@ output = decoder_dense(decoder_outputs)
 
 model = tf.keras.models.Model([encoder_inputs, decoder_inputs], output)
 model.compile(optimizer=tf.keras.optimizers.RMSprop(),
-              loss='categorical_crossentropy')
+              loss='categorical_crossentropy', metrics=['accuracy'])
 
 model.summary()
 
-model.fit([encoder_input_data, decoder_input_data],
-          decoder_output_data, batch_size=50, epochs=75)
+history = model.fit([encoder_input_data, decoder_input_data],
+                    decoder_output_data, batch_size=32, epochs=300)
+
+print(history.history['loss'])
 model.save('model.h5')
 
 
 def make_inference_models():
-
     encoder_model = tf.keras.models.Model(encoder_inputs, encoder_states)
 
     decoder_state_input_h = tf.keras.layers.Input(shape=(200,))
@@ -176,25 +175,25 @@ def str_to_tokens(sentence: str):
 enc_model, dec_model = make_inference_models()
 
 for _ in range(10):
-    states_values = enc_model.predict( str_to_tokens( input( 'Enter question : ' ) ) )
-    empty_target_seq = np.zeros( ( 1 , 1 ) )
+    states_values = enc_model.predict(str_to_tokens(input('Enter question : ')))
+    empty_target_seq = np.zeros((1, 1))
     empty_target_seq[0, 0] = tokenizer.word_index['start']
     stop_condition = False
     decoded_translation = ''
-    while not stop_condition :
-        dec_outputs , h , c = dec_model.predict([ empty_target_seq ] + states_values )
-        sampled_word_index = np.argmax( dec_outputs[0, -1, :] )
+    while not stop_condition:
+        dec_outputs, h, c = dec_model.predict([empty_target_seq] + states_values)
+        sampled_word_index = np.argmax(dec_outputs[0, -1, :])
         sampled_word = None
-        for word , index in tokenizer.word_index.items() :
-            if sampled_word_index == index :
-                decoded_translation += ' {}'.format( word )
+        for word, index in tokenizer.word_index.items():
+            if sampled_word_index == index:
+                decoded_translation += ' {}'.format(word)
                 sampled_word = word
-        
+
         if sampled_word == 'end' or len(decoded_translation.split()) > maxlen_answers:
             stop_condition = True
-            
-        empty_target_seq = np.zeros( ( 1 , 1 ) )  
-        empty_target_seq[ 0 , 0 ] = sampled_word_index
-        states_values = [ h , c ] 
 
-    print( decoded_translation )
+        empty_target_seq = np.zeros((1, 1))
+        empty_target_seq[0, 0] = sampled_word_index
+        states_values = [h, c]
+
+    print(decoded_translation)
