@@ -42,3 +42,4 @@ Werkzeug==0.16.0
 wrapt==1.11.2
 jedi
 gensim
+matplotlib
