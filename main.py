@@ -6,6 +6,7 @@ import pickle
 from tensorflow.keras import layers, activations, models, preprocessing, utils
 from gensim.models import Word2Vec
 import re
+from matplotlib import pyplot
 
 print('tensor version {}'.format(tf.version.VERSION))
 
@@ -139,9 +140,11 @@ model.compile(optimizer=tf.keras.optimizers.RMSprop(),
 model.summary()
 
 history = model.fit([encoder_input_data, decoder_input_data],
-                    decoder_output_data, batch_size=32, epochs=300)
+                    decoder_output_data, batch_size=32, epochs=200)
 
-print(history.history['loss'])
+# print(history.history['loss'])
+pyplot.plot(history.history['accuracy'])
+pyplot.show()
 model.save('model.h5')
 
 
