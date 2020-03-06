@@ -1,11 +1,12 @@
-saludos:
-- - buenos dias
-  - saludos
-- - saludos, como puedo ayudarte
-  - hola
-- - en que puedo ayudarte
+conversaciones:
+- - saludos
+  - buen dia, como puedo ayudarte
+  - buen dia
+- - oye
+  - hola, en que puedo ayudarte
+- - que tal?
+  - bien, y usted
+- - buenas
   - hola, como puedo ayudarte
-- - saludos, en que le puedo ayudar
-  - buenos dias, como puedo ayudarte
 - - hola
-  - hola
+  - saludos, en que le puedo ayudar

@@ -38,7 +38,7 @@ for filepath in files_list:
                 for rep in res:
                     r = str(rep).lower()
                     r = re.sub("[^a-zA-Z]", " ", rep)
-                    ans += " " + rep
+                    ans += " " + r
                 resp.append(ans)
             elif len(con) > 1:
                 questions.append(con[0])
