@@ -44,7 +44,6 @@ for filepath in files_list:
                 questions.append(con[0])
                 resp.append(con[1])
 
-
 answers_with_tags = list()
 for i in range(len(resp)):
     if type(resp[i]) == str:
