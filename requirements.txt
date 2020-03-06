@@ -4,3 +4,4 @@ scipy
 six
 tensorflow
 stop-words
+pyaml
