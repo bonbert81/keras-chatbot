@@ -2,11 +2,11 @@ categoria:
 - saludos
 conversaciones:
 - - buenas tardes
- - buenas tardes, como puedo ayudarte?
+  - buenas tardes, como puedo ayudarte?
 - - buenos dias
- - buenos dias, como puedo ayudarte?
+  - buenos dias, como puedo ayudarte?
 - - buenas noches
- - buenas noches, como puedo ayudarte?
+  - buenas noches, como puedo ayudarte?
 - - saludos
   - hola, como puedo ayudarte?
 - - oye
@@ -18,19 +18,19 @@ conversaciones:
 - - hola
   - saludos, como puedo ayudarte?
 - - Cómo estás
- - muy bien, y usted?, como puedo ayudarle?
+  - muy bien, y usted?, como puedo ayudarle?
 - - Cómo está Usted?
- - muy bien, y usted?, como puedo ayudarle?
+  - muy bien, y usted?, como puedo ayudarle?
 - - Qué tal?
- - hola, como puedo ayudarte?
+  - hola, como puedo ayudarte?
 - - Cómo has estado?
- - muy bien, y usted?, como puedo ayudarle?
+  - muy bien, y usted?, como puedo ayudarle?
 - - Cómo te ha ido?
- - muy bien, y a ti?, como puedo ayudarte?
+  - muy bien, y a ti?, como puedo ayudarte?
 - - Cómo te va?
- - bien, y a usted?, como puedo ayudarle?
+  - bien, y a usted?, como puedo ayudarle?
 - - Cómo le va?
- - bien, y a usted?, como puedo ayudarle?
+  - bien, y a usted?, como puedo ayudarle?
 - - Qué hay de nuevo?
   - hola, como puedo ayudarte?
 - - Qué me cuentas?
@@ -38,49 +38,49 @@ conversaciones:
 - - KLK
   - hola, como puedo ayudarte?
 - - klk tu dices
- - hola, como puedo ayudarte?
+  - hola, como puedo ayudarte?
 - - CTT
- - saludos, como puedo ayudarte?
+  - saludos, como puedo ayudarte?
 - - Cómo tu ta?
- - muy bien, y tu?, como puedo ayudarte?
+  - muy bien, y tu?, como puedo ayudarte?
 - - Dime a ver
- - hola, como puedo ayudarte?
+  - hola, como puedo ayudarte?
 - - Cómo te llamas?
- - hola, mi nombre es LaboraBot, como puedo ayudarte?
+  - hola, mi nombre es LaboraBot, como puedo ayudarte?
 - - Cuál es tu nombre?
- - hola, mi nombre es LaboraBot, como puedo ayudarte?
+  - hola, mi nombre es LaboraBot, como puedo ayudarte?
 - - Adiós
- - hasta luego!
+  - hasta luego!
 - - Nos vemos
- - Adiós
+  - Adiós
 - - Hasta pronto
- - hasta luego!
+  - hasta luego!
 - - Hasta siempre
- - hasta luego!
+  - hasta luego!
 - - Hasta luego
- - hasta luego!
+  - hasta luego!
 - - Hasta nunca
- - hasta luego!
+  - hasta luego!
 - - Hasta mañana
- - hasta luego!
+  - hasta luego!
 - - Hasta la otra semana
- - hasta luego!
+  - hasta luego!
 - - Hasta la próximo
- - hasta luego!
+  - hasta luego!
 - - Te veo luego
- - hasta luego!
+  - hasta luego!
 - - Chao
- - Adiós!
+  - Adiós!
 - - Cuídate
- - Adiós!
+  - Adiós!
 - - Bye
- - Adiós!
+  - Adiós!
 - - Te puede cuidar
- - Adiós!
+  - Adiós!
 - - Gracias
- - Siempre a la orden!
+  - Siempre a la orden!
 - - Me fui
- - - Adiós
+  - Adiós
 - - Te vi
- - hasta luego!
+  - hasta luego!
 
