@@ -150,6 +150,7 @@ model = tf.keras.models.Model([encoder_inputs, decoder_inputs], output)
 model.compile(
     optimizer=tf.keras.optimizers.RMSprop(),
     loss="categorical_crossentropy",
+    metrics=["accuracy"],
 )
 
 model.summary()
@@ -171,6 +172,15 @@ pyplot.ylabel('loss')
 pyplot.xlabel('epoch')
 pyplot.legend(['train', 'validation'], loc='upper right')
 pyplot.show()
+
+pyplot.plot(history.history['accuracy'])
+pyplot.plot(history.history['val_accuracy'])
+pyplot.title('model train vs validation accuracy')
+pyplot.ylabel('accuracy')
+pyplot.xlabel('epoch')
+pyplot.legend(['train', 'validation'], loc='upper right')
+pyplot.show()
+
 model.save("model.h5")
 
 
@@ -221,7 +231,7 @@ for _ in range(10):
                 decoded_translation += " {}".format(word)
                 sampled_word = word
 
-        if sampled_word == "end" or len(decoded_translation.split()) > maxlen_answers:
+        if sampled_word == "end":
             stop_condition = True
 
         empty_target_seq = np.zeros((1, 1))
