@@ -3,3 +3,4 @@ env
 __pycache__
 .idea
 dec_tar_data.npy
+*.npy
