@@ -150,7 +150,6 @@ model = tf.keras.models.Model([encoder_inputs, decoder_inputs], output)
 model.compile(
     optimizer=tf.keras.optimizers.RMSprop(),
     loss="categorical_crossentropy",
-    metrics=["accuracy"],
 )
 
 model.summary()
@@ -158,12 +157,19 @@ model.summary()
 history = model.fit(
     [encoder_input_data, decoder_input_data],
     decoder_output_data,
+    validation_split=0.3,
+    verbose=1,
     batch_size=32,
-    epochs=125,
+    epochs=200,
 )
 
 # print(history.history['loss'])
-pyplot.plot(history.history["accuracy"])
+pyplot.plot(history.history['loss'])
+pyplot.plot(history.history['val_loss'])
+pyplot.title('model train vs validation loss')
+pyplot.ylabel('loss')
+pyplot.xlabel('epoch')
+pyplot.legend(['train', 'validation'], loc='upper right')
 pyplot.show()
 model.save("model.h5")
 
