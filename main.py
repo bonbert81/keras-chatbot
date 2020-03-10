@@ -22,7 +22,7 @@ vocab = []
 
 print("Archivos a entrenar: {}".format(files_list))
 for filepath in files_list:
-    if filepath.endswith(".yaml"):
+    if filepath.endswith(".yml"):
         stream = open(dir_path + os.sep + filepath, "rb")
         docs = yaml.safe_load(stream)
         conversations = docs["conversaciones"]
@@ -47,7 +47,6 @@ for filepath in files_list:
 answers_with_tags = list()
 for i in range(len(resp)):
     if type(resp[i]) == str:
-        print("snd: {}".format(resp[i]))
         answers_with_tags.append(resp[i])
     else:
         questions.pop(i)
@@ -114,17 +113,17 @@ print(decoder_input_data.shape, maxlen_answers)
 tokenized_answers = tokenizer.texts_to_sequences(answers)
 for i in range(len(tokenized_answers)):
     tokenized_answers[i] = tokenized_answers[i][1:]
-    padded_answers = preprocessing.sequence.pad_sequences(
-        tokenized_answers, maxlen=maxlen_answers, padding="post"
-    )
-    onehot_answers = utils.to_categorical(padded_answers, VOCAB_SIZE)
-    decoder_output_data = np.array(onehot_answers)
-    print(decoder_output_data.shape)
+padded_answers = preprocessing.sequence.pad_sequences(
+    tokenized_answers, maxlen=maxlen_answers, padding="post"
+)
+onehot_answers = utils.to_categorical(padded_answers, VOCAB_SIZE)
+decoder_output_data = np.array(onehot_answers)
+print(decoder_output_data.shape)
 
-    # Saving all the arrays to storage
-    np.save("enc_in_data.npy", encoder_input_data)
-    np.save("dec_in_data.npy", decoder_input_data)
-    np.save("dec_tar_data.npy", decoder_output_data)
+# Saving all the arrays to storage
+np.save("enc_in_data.npy", encoder_input_data)
+np.save("dec_in_data.npy", decoder_input_data)
+np.save("dec_tar_data.npy", decoder_output_data)
 
 encoder_inputs = tf.keras.layers.Input(shape=(None,))
 encoder_embedding = tf.keras.layers.Embedding(VOCAB_SIZE, 200, mask_zero=True)(
@@ -216,7 +215,7 @@ def str_to_tokens(sentence: str):
 
 enc_model, dec_model = make_inference_models()
 
-for _ in range(10):
+for _ in range(10000):
     states_values = enc_model.predict(str_to_tokens(input("Enter question : ")))
     empty_target_seq = np.zeros((1, 1))
     empty_target_seq[0, 0] = tokenizer.word_index["start"]
