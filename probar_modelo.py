@@ -1,14 +1,19 @@
+import os
+
 import yaml
 from tensorflow.keras.models import Model, load_model
 from tensorflow.keras.layers import Input
 import numpy as np
+import pytest
 
 batch_size = 64  # Batch size for training.
 epochs = 100  # Number of epochs to train for.
 latent_dim = 256  # Latent dimensionality of the encoding space.
 num_samples = 100  # Number of samples to train on.
 # Path to the data txt file on disk.
-data_path = 'data/salida.yml'
+data_path = 'data/preguntas.yaml'
+
+print('existe archivo: {}'.format(os.path.isfile(data_path)))
 
 # Vectorize the data.  We use the same approach as the training script.
 # NOTE: the data must be identical, in order for the character -> integer
@@ -128,11 +133,12 @@ def decode_sequence(input_seq):
     return decoded_sentence
 
 
-for seq_index in range(100):
+def buscar_pregunta(indice):
     # Take one sequence (part of the training set)
     # for trying out decoding.
-    input_seq = encoder_input_data[seq_index: seq_index + 1]
+    input_seq = encoder_input_data[indice: indice + 1]
     decoded_sentence = decode_sequence(input_seq)
     print('-')
-    print('Input sentence:', input_texts[seq_index])
+    print('Input sentence:', input_texts[indice])
     print('Decoded sentence:', decoded_sentence)
+    return input_texts[indice], target_texts[indice], decoded_sentence

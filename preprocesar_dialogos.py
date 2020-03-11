@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
     archivos = [
         "dialog-babi/dialog-trn.txt",
-        "dialog-babi/dialog-test.txt",
+        "dialog-babi/dialog-tests.txt",
         "dialog-babi/dialog-dev.txt",
     ]
     with open("dialog-babi/dialogos_original.txt", encoding="utf-8") as f:
@@ -61,7 +61,7 @@ if __name__ == "__main__":
     #     cand_trn = parse_dialogs_per_response(f.readlines())
 
     # test_data = []
-    # with open("dialog-babi/dialog-test.txt", encoding="utf-8") as f:
+    # with open("dialog-babi/dialog-tests.txt", encoding="utf-8") as f:
     #     cand_text = parse_dialogs_per_response(f.readlines())
 
     # val_data = []

@@ -168,7 +168,7 @@ class ChatBotWrapper(object):
                 print("---")
 
     def test(self):
-        # Compute accuracy over test set
+        # Compute accuracy over tests set
         test_facts, test_questions, test_answers = vectorize_data(
             self.test_data, self.word_idx, self.sentence_size,
             self.batch_size, self.memory_size)
