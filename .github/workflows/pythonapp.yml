@@ -7,7 +7,7 @@ on:
   push:
     branches: [ demo-keras ]
   pull_request:
-    branches: [ master ]
+    branches: [ demo-keras ]
 
 jobs:
   build:
