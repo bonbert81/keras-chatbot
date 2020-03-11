@@ -157,10 +157,10 @@ model.summary()
 history = model.fit(
     [encoder_input_data, decoder_input_data],
     decoder_output_data,
-    validation_split=0.3,
+    validation_split=0.1,
     verbose=1,
-    batch_size=32,
-    epochs=200,
+    batch_size=1,
+    epochs=60,
 )
 
 # print(history.history['loss'])
