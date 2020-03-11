@@ -10,7 +10,7 @@ epochs = 50  # Number of epochs to train for.
 latent_dim = 256  # Latent dimensionality of the encoding space.
 num_samples = 60  # Number of samples to train on.
 # Path to the data txt file on disk.
-data_path = 'data/preguntas.yaml'
+data_path = 'data/preguntas copy1.yaml'
 
 # Vectorize the data.
 input_texts = []
