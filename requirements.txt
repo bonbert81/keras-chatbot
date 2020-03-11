@@ -45,3 +45,4 @@ gensim
 matplotlib
 pyaml
 pytest
+nose

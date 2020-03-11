@@ -3,26 +3,14 @@ import probar_modelo
 
 
 class MyTestCase(unittest.TestCase):
-    def test_something(self):
-        for indice in range(100):
+
+    def test_works_as_expected(self):
+        for indice in range(20):
             pregunta, respuesta, prediccion = probar_modelo.buscar_pregunta(indice)
+            respuesta = respuesta.replace('\t', '')
+            respuesta = respuesta.replace('\n', '')
             test_name = 'test_%s' % pregunta
-            test = test_generator(respuesta, prediccion)
-            setattr(MyTestCase, test_name, test)
-        unittest.main()
+            with self.subTest():
+                self.assertEqual(msg=test_name, first=respuesta, second=prediccion)
 
-
-def test_generator(a, b):
-    def test(self):
-        self.assertEqual(a, b)
-
-    return test
-
-
-if __name__ == '__main__':
-    for indice in range(100):
-        pregunta, respuesta, prediccion = probar_modelo.buscar_pregunta(indice)
-        test_name = 'test_%s' % pregunta
-        test = test_generator(respuesta, prediccion)
-        setattr(MyTestCase, test_name, test)
-    unittest.main()
+    # setattr(MyTestCase, "test_%r" % (pregunta), ch(respuesta, prediccion))
