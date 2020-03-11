@@ -114,17 +114,17 @@ print(decoder_input_data.shape, maxlen_answers)
 tokenized_answers = tokenizer.texts_to_sequences(answers)
 for i in range(len(tokenized_answers)):
     tokenized_answers[i] = tokenized_answers[i][1:]
-    padded_answers = preprocessing.sequence.pad_sequences(
-        tokenized_answers, maxlen=maxlen_answers, padding="post"
-    )
-    onehot_answers = utils.to_categorical(padded_answers, VOCAB_SIZE)
-    decoder_output_data = np.array(onehot_answers)
-    print(decoder_output_data.shape)
+padded_answers = preprocessing.sequence.pad_sequences(
+    tokenized_answers, maxlen=maxlen_answers, padding="post"
+)
+onehot_answers = utils.to_categorical(padded_answers, VOCAB_SIZE)
+decoder_output_data = np.array(onehot_answers)
+print(decoder_output_data.shape)
 
-    # Saving all the arrays to storage
-    np.save("enc_in_data.npy", encoder_input_data)
-    np.save("dec_in_data.npy", decoder_input_data)
-    np.save("dec_tar_data.npy", decoder_output_data)
+# Saving all the arrays to storage
+np.save("enc_in_data.npy", encoder_input_data)
+np.save("dec_in_data.npy", decoder_input_data)
+np.save("dec_tar_data.npy", decoder_output_data)
 
 encoder_inputs = tf.keras.layers.Input(shape=(None,))
 encoder_embedding = tf.keras.layers.Embedding(VOCAB_SIZE, 200, mask_zero=True)(
@@ -152,18 +152,32 @@ model.compile(
     loss="categorical_crossentropy",
     metrics=["accuracy"],
 )
-
 model.summary()
 
 history = model.fit(
     [encoder_input_data, decoder_input_data],
     decoder_output_data,
+    validation_split=0.10,
+    verbose=1,
     batch_size=32,
-    epochs=125,
+    epochs=100,
 )
 
 # print(history.history['loss'])
+pyplot.plot(history.history["loss"])
+pyplot.plot(history.history["val_loss"])
+pyplot.title('model train vs validation loss')
+pyplot.ylabel('loss')
+pyplot.xlabel('epoch')
+pyplot.legend(['train','validation'], loc='upper right')
+pyplot.show()
+
 pyplot.plot(history.history["accuracy"])
+pyplot.plot(history.history["val_accuracy"])
+pyplot.title('model train vs validation accuracy')
+pyplot.ylabel('accuracy')
+pyplot.xlabel('epoch')
+pyplot.legend(['train','validation'], loc='upper right')
 pyplot.show()
 model.save("model.h5")
 
@@ -200,7 +214,7 @@ def str_to_tokens(sentence: str):
 
 enc_model, dec_model = make_inference_models()
 
-for _ in range(10):
+for _ in range(10000):
     states_values = enc_model.predict(str_to_tokens(input("Enter question : ")))
     empty_target_seq = np.zeros((1, 1))
     empty_target_seq[0, 0] = tokenizer.word_index["start"]
@@ -215,7 +229,7 @@ for _ in range(10):
                 decoded_translation += " {}".format(word)
                 sampled_word = word
 
-        if sampled_word == "end" or len(decoded_translation.split()) > maxlen_answers:
+        if sampled_word == "end":
             stop_condition = True
 
         empty_target_seq = np.zeros((1, 1))
