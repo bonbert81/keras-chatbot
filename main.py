@@ -22,7 +22,7 @@ vocab = []
 
 print("Archivos a entrenar: {}".format(files_list))
 for filepath in files_list:
-    if filepath.endswith(".yaml"):
+    if filepath.endswith(".yml"):
         stream = open(dir_path + os.sep + filepath, "rb")
         docs = yaml.safe_load(stream)
         conversations = docs["conversaciones"]
@@ -157,7 +157,7 @@ model.summary()
 history = model.fit(
     [encoder_input_data, decoder_input_data],
     decoder_output_data,
-    validation_split=0.10,
+    validation_split=0.15,
     verbose=1,
     batch_size=32,
     epochs=100,
