@@ -26,10 +26,12 @@ for con in conversations:
     target_text = '\t' + con[1] + '\n'
     input_texts.append(input_text)
     target_texts.append(target_text)
-    for char in input_text:
+    for char in input_text.split(" "):
+        char = char.replace('\t', '')
         if char not in input_characters:
             input_characters.add(char)
-    for char in target_text:
+    for char in target_text.split(" "):
+        char = char.replace('\t', '')
         if char not in target_characters:
             target_characters.add(char)
 
@@ -48,6 +50,7 @@ print('Max sequence length for outputs:', max_decoder_seq_length)
 
 input_token_index = dict(
     [(char, i) for i, char in enumerate(input_characters)])
+
 target_token_index = dict(
     [(char, i) for i, char in enumerate(target_characters)])
 
@@ -62,18 +65,19 @@ decoder_target_data = np.zeros(
     dtype='float32')
 
 for i, (input_text, target_text) in enumerate(zip(input_texts, target_texts)):
-    for t, char in enumerate(input_text):
+    target_text = target_text.replace("\t", '')
+    for t, char in enumerate(input_text.split(" ")):
         encoder_input_data[i, t, input_token_index[char]] = 1.
-    encoder_input_data[i, t + 1:, input_token_index[' ']] = 1.
-    for t, char in enumerate(target_text):
+    encoder_input_data[i, t + 1:, input_token_index['']] = 1.
+    for t, char in enumerate(target_text.split(" ")):
         # decoder_target_data is ahead of decoder_input_data by one timestep
         decoder_input_data[i, t, target_token_index[char]] = 1.
         if t > 0:
             # decoder_target_data will be ahead by one timestep
             # and will not include the start character.
             decoder_target_data[i, t - 1, target_token_index[char]] = 1.
-    decoder_input_data[i, t + 1:, target_token_index[' ']] = 1.
-    decoder_target_data[i, t:, target_token_index[' ']] = 1.
+    decoder_input_data[i, t + 1:, target_token_index['']] = 1.
+    decoder_target_data[i, t:, target_token_index['']] = 1.
 # Define an input sequence and process it.
 encoder_inputs = Input(shape=(None, num_encoder_tokens))
 encoder = LSTM(latent_dim, return_state=True)
@@ -125,7 +129,7 @@ pyplot.legend(['train', 'validation'], loc='upper right')
 pyplot.show()
 
 # Save model
-model.save('s2s.h5')
+model.save('s3s.h5')
 
 # Next: inference mode (sampling).
 # Here's the drill:
