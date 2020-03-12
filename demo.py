@@ -2,7 +2,8 @@ import tensorflow as tf
 import yaml
 from matplotlib import pyplot
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Input, LSTM, Dense
+from tensorflow.keras import utils, preprocessing
+from tensorflow.keras.layers import Input, LSTM, Dense, Embedding
 import numpy as np
 
 batch_size = 32  # Batch size for training.
@@ -23,9 +24,21 @@ docs = yaml.safe_load(stream)
 conversations = docs["conversaciones"]
 for con in conversations:
     input_text = con[0]
-    target_text = '\t' + con[1] + '\n'
-    input_texts.append(input_text)
-    target_texts.append(target_text)
+    target_text = con[1]
+
+    input_text = input_text.lower()
+    target_text = target_text.lower()
+
+    input_text = input_text.replace(',', " ,")
+    input_text = input_text.replace(".", " .")
+    input_text = input_text.replace("!", "")
+    input_text = input_text.replace("?", "")
+
+    target_text = target_text.replace(",", " ,")
+    target_text = target_text.replace(".", " .")
+    target_text = target_text.replace("!", "")
+    target_text = target_text.replace("?", "")
+
     for char in input_text.split(" "):
         char = char.replace('\t', '')
         if char not in input_characters:
@@ -34,6 +47,11 @@ for con in conversations:
         char = char.replace('\t', '')
         if char not in target_characters:
             target_characters.add(char)
+
+    target_text = '\t' + target_text + '\n'
+
+    input_texts.append(input_text)
+    target_texts.append(target_text)
 
 input_characters = sorted(list(input_characters))
 target_characters = sorted(list(target_characters))
@@ -64,37 +82,35 @@ decoder_target_data = np.zeros(
     (len(input_texts), max_decoder_seq_length, num_decoder_tokens),
     dtype='float32')
 
-for i, (input_text, target_text) in enumerate(zip(input_texts, target_texts)):
-    target_text = target_text.replace("\t", '')
-    for t, char in enumerate(input_text.split(" ")):
-        encoder_input_data[i, t, input_token_index[char]] = 1.
-    encoder_input_data[i, t + 1:, input_token_index['']] = 1.
-    for t, char in enumerate(target_text.split(" ")):
+for i, text, in enumerate(input_texts):
+    words = text.split()
+    for t, word in enumerate(words):
+        encoder_input_data[i, t, input_token_index[word]] = 1.
+
+for i, text, in enumerate(target_texts):
+    words = text.split()
+    for t, word in enumerate(words):
         # decoder_target_data is ahead of decoder_input_data by one timestep
-        decoder_input_data[i, t, target_token_index[char]] = 1.
+        decoder_input_data[i, t, target_token_index[word]] = 1.
         if t > 0:
             # decoder_target_data will be ahead by one timestep
             # and will not include the start character.
-            decoder_target_data[i, t - 1, target_token_index[char]] = 1.
-    decoder_input_data[i, t + 1:, target_token_index['']] = 1.
-    decoder_target_data[i, t:, target_token_index['']] = 1.
+            decoder_target_data[i, t - 1, target_token_index[word]] = 1.
+
+decoder_target_data = np.delete(decoder_target_data, 2, axis=0)
+
 # Define an input sequence and process it.
-encoder_inputs = Input(shape=(None, num_encoder_tokens))
-encoder = LSTM(latent_dim, return_state=True)
-encoder_outputs, state_h, state_c = encoder(encoder_inputs)
-# We discard `encoder_outputs` and only keep the states.
+encoder_inputs = Input(shape=(None,))
+x = Embedding(num_encoder_tokens, latent_dim)(encoder_inputs)
+x, state_h, state_c = LSTM(latent_dim,
+                           return_state=True)(x)
 encoder_states = [state_h, state_c]
 
 # Set up the decoder, using `encoder_states` as initial state.
-decoder_inputs = Input(shape=(None, num_decoder_tokens))
-# We set up our decoder to return full output sequences,
-# and to return internal states as well. We don't use the
-# return states in the training model, but we will use them in inference.
-decoder_lstm = LSTM(latent_dim, return_sequences=True, return_state=True)
-decoder_outputs, _, _ = decoder_lstm(decoder_inputs,
-                                     initial_state=encoder_states)
-decoder_dense = Dense(num_decoder_tokens, activation='softmax')
-decoder_outputs = decoder_dense(decoder_outputs)
+decoder_inputs = Input(shape=(None,))
+x = Embedding(num_decoder_tokens, latent_dim)(decoder_inputs)
+x = LSTM(latent_dim, return_sequences=True)(x, initial_state=encoder_states)
+decoder_outputs = Dense(num_decoder_tokens, activation='softmax')(x)
 
 # Define the model that will turn
 # `encoder_input_data` & `decoder_input_data` into `decoder_target_data`
@@ -145,10 +161,10 @@ encoder_model = Model(encoder_inputs, encoder_states)
 decoder_state_input_h = Input(shape=(latent_dim,))
 decoder_state_input_c = Input(shape=(latent_dim,))
 decoder_states_inputs = [decoder_state_input_h, decoder_state_input_c]
-decoder_outputs, state_h, state_c = decoder_lstm(
-    decoder_inputs, initial_state=decoder_states_inputs)
+decoder_outputs, state_h, state_c = LSTM(
+    decoder_inputs, initial_state=decoder_states_inputs)(decoder_outputs)
 decoder_states = [state_h, state_c]
-decoder_outputs = decoder_dense(decoder_outputs)
+# decoder_outputs = decoder_dense(decoder_outputs)
 decoder_model = Model(
     [decoder_inputs] + decoder_states_inputs,
     [decoder_outputs] + decoder_states)
