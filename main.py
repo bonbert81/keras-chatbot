@@ -30,14 +30,14 @@ for filepath in files_list:
             if len(con) > 2:
                 pregunta = con[0]
                 pregunta = pregunta.lower()
-                pregunta = re.sub("[^a-zA-Z]", " ", pregunta)
+                # pregunta = re.sub("[^a-zA-Z]", " ", pregunta)
                 questions.append(pregunta)
                 res = con[1:]
 
                 ans = ""
                 for rep in res:
                     r = str(rep).lower()
-                    r = re.sub("[^a-zA-Z]", " ", rep)
+                    # r = re.sub("[^a-zA-Z]", " ", rep)
                     ans += " " + r
                 resp.append(ans)
             elif len(con) > 1:
@@ -157,10 +157,10 @@ model.summary()
 history = model.fit(
     [encoder_input_data, decoder_input_data],
     decoder_output_data,
-    validation_split=0.3,
+    validation_split=0.2,
     verbose=1,
     batch_size=32,
-    epochs=100,
+    epochs=110,
 )
 
 # print(history.history['loss'])
