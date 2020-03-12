@@ -46,3 +46,4 @@ matplotlib
 pyaml
 pytest
 nose
+keras

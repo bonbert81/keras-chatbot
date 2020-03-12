@@ -1,9 +1,9 @@
 import tensorflow as tf
 import yaml
 from matplotlib import pyplot
-from tensorflow.keras.models import Model
-from tensorflow.keras import utils, preprocessing
-from tensorflow.keras.layers import Input, LSTM, Dense, Embedding
+from keras.models import Model
+from keras import utils, preprocessing
+from keras.layers import Input, LSTM, Dense, Embedding, Flatten
 import numpy as np
 
 batch_size = 32  # Batch size for training.
@@ -75,29 +75,50 @@ target_token_index = dict(
 encoder_input_data = np.zeros(
     (len(input_texts), max_encoder_seq_length, num_encoder_tokens),
     dtype='float32')
+print(encoder_input_data.shape)
 decoder_input_data = np.zeros(
     (len(input_texts), max_decoder_seq_length, num_decoder_tokens),
     dtype='float32')
-decoder_target_data = np.zeros(
-    (len(input_texts), max_decoder_seq_length, num_decoder_tokens),
-    dtype='float32')
+print(decoder_input_data.shape)
+
+tokenizer = preprocessing.text.Tokenizer()
+tokenizer.fit_on_texts(input_texts + target_texts)
+
+# decoder_input_data
+tokenized_answers = tokenizer.texts_to_sequences(target_texts)
+maxlen_answers = max([len(x) for x in tokenized_answers])
+padded_answers = preprocessing.sequence.pad_sequences(
+    tokenized_answers, maxlen=maxlen_answers, padding="post"
+)
+
+tokenized_answers = tokenizer.texts_to_sequences(target_texts)
+for i in range(len(tokenized_answers)):
+    tokenized_answers[i] = tokenized_answers[i][1:]
+padded_answers = preprocessing.sequence.pad_sequences(
+    tokenized_answers, maxlen=maxlen_answers, padding="post"
+)
+print(padded_answers.shape)
+# decoder_target_data = np.zeros(
+#     (len(input_texts), max_decoder_seq_length, num_decoder_tokens),
+#     dtype='float32')
+# print(decoder_target_data.shape)
 
 for i, text, in enumerate(input_texts):
     words = text.split()
     for t, word in enumerate(words):
         encoder_input_data[i, t, input_token_index[word]] = 1.
 
-for i, text, in enumerate(target_texts):
-    words = text.split()
-    for t, word in enumerate(words):
-        # decoder_target_data is ahead of decoder_input_data by one timestep
-        decoder_input_data[i, t, target_token_index[word]] = 1.
-        if t > 0:
+# for i, text, in enumerate(target_texts):
+#     words = text.split()
+#     for t, word in enumerate(words):
+#         # decoder_target_data is ahead of decoder_input_data by one timestep
+#         decoder_input_data[i, t, target_token_index[word]] = 1.
+        # if t > 0:
             # decoder_target_data will be ahead by one timestep
             # and will not include the start character.
-            decoder_target_data[i, t - 1, target_token_index[word]] = 1.
+            # decoder_target_data[i, t - 1, target_token_index[word]] = 1.
 
-decoder_target_data = np.delete(decoder_target_data, 2, axis=0)
+# decoder_target_data = np.delete(decoder_target_data, 2)
 
 # Define an input sequence and process it.
 encoder_inputs = Input(shape=(None,))
@@ -111,18 +132,17 @@ decoder_inputs = Input(shape=(None,))
 x = Embedding(num_decoder_tokens, latent_dim)(decoder_inputs)
 x = LSTM(latent_dim, return_sequences=True)(x, initial_state=encoder_states)
 decoder_outputs = Dense(num_decoder_tokens, activation='softmax')(x)
-
+print('decoder out shape: {}'.format(decoder_outputs.shape))
 # Define the model that will turn
 # `encoder_input_data` & `decoder_input_data` into `decoder_target_data`
 model = Model([encoder_inputs, decoder_inputs], decoder_outputs)
-
 # Run training
 model.compile(optimizer='rmsprop', loss='categorical_crossentropy',
               metrics=['accuracy'])
 
 model.summary()
 
-history = model.fit([encoder_input_data, decoder_input_data], decoder_target_data,
+history = model.fit([encoder_input_data, decoder_input_data], padded_answers,
                     batch_size=batch_size,
                     epochs=epochs,
                     validation_split=0.2)

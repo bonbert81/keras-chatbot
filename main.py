@@ -22,7 +22,7 @@ vocab = []
 
 print("Archivos a entrenar: {}".format(files_list))
 for filepath in files_list:
-    if filepath.endswith(".yml"):
+    if filepath.endswith("1.yaml"):
         stream = open(dir_path + os.sep + filepath, "rb")
         docs = yaml.safe_load(stream)
         conversations = docs["conversaciones"]
