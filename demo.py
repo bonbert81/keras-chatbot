@@ -1,6 +1,7 @@
 import tensorflow as tf
+from keras import models as modelo
 
 
-model = tf.compat.v1.keras.models.load_model('model.h5')
+model = tf.keras.models.load_model('model.h5')
 
 model.summary()
