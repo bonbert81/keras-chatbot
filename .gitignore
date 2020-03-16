@@ -4,3 +4,4 @@ __pycache__
 .idea
 dec_tar_data.npy
 *.npy
+venv
