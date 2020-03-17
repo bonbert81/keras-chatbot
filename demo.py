@@ -200,8 +200,8 @@ def decode_sequence(input_seq):
 def str_to_tokens(sentence: str):
     words = sentence.lower().split()
     tokens_list = list()
-    for word in words:
-        tokens_list.append(tokenizer.word_index[word])
+    for word in separar_oracion_tokens(sentence):
+        tokens_list.append(tokenizer.word_index[word] if word in tokenizer.word_index else 0)
     return preprocessing.sequence.pad_sequences(
         [tokens_list], maxlen=max_encoder_seq_length, padding="post"
     )
