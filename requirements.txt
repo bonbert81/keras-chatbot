@@ -44,3 +44,4 @@ jedi
 gensim
 matplotlib
 pyaml
+spacy
