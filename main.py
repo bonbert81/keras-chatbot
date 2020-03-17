@@ -30,14 +30,14 @@ for filepath in files_list:
             if len(con) > 2:
                 pregunta = con[0]
                 pregunta = pregunta.lower()
-                pregunta = re.sub("[^a-zA-Z]", " ", pregunta)
+                # pregunta = re.sub("[^a-zA-Z]", " ", pregunta)
                 questions.append(pregunta)
                 res = con[1:]
 
                 ans = ""
                 for rep in res:
                     r = str(rep).lower()
-                    r = re.sub("[^a-zA-Z]", " ", rep)
+                    # r = re.sub("[^a-zA-Z]", " ", rep)
                     ans += " " + r
                 resp.append(ans)
             elif len(con) > 1:
@@ -70,7 +70,7 @@ def tokenize(sentences):
     vocabulary = []
     for sentence in sentences:
         sentence = sentence.lower()
-        sentence = re.sub("[^a-zA-Z]", " ", sentence)
+        # sentence = re.sub("[^a-zA-Z]", " ", sentence)
         tokens = sentence.split()
         vocabulary += tokens
         tokens_list.append(tokens)
