@@ -10,6 +10,8 @@ from gensim.models import Word2Vec
 import re
 from matplotlib import pyplot
 
+from procesar_texto import separar_oracion_tokens
+
 print("tensor version {}".format(tf.version.VERSION))
 
 dir_path = "data"
@@ -19,7 +21,8 @@ questions = list()
 resp = list()
 answers = list()
 vocab = []
-
+input_characters = set()
+target_characters = set()
 print("Archivos a entrenar: {}".format(files_list))
 for filepath in files_list:
     if filepath.endswith(".yaml"):
@@ -27,8 +30,9 @@ for filepath in files_list:
         docs = yaml.safe_load(stream)
         conversations = docs["conversaciones"]
         for con in conversations:
+            input_text = con[0]
             if len(con) > 2:
-                pregunta = con[0]
+                pregunta = input_text
                 pregunta = pregunta.lower()
                 # pregunta = re.sub("[^a-zA-Z]", " ", pregunta)
                 questions.append(pregunta)
@@ -41,8 +45,16 @@ for filepath in files_list:
                     ans += " " + r
                 resp.append(ans)
             elif len(con) > 1:
-                questions.append(con[0])
-                resp.append(con[1])
+                questions.append(input_text)
+                target_text = con[1]
+                resp.append(target_text)
+
+                for char in separar_oracion_tokens(input_text):
+                    if char not in input_characters:
+                        input_characters.add(char)
+                for char in separar_oracion_tokens(target_text):
+                    if char not in target_characters:
+                        target_characters.add(char)
 
 answers_with_tags = list()
 for i in range(len(resp)):
@@ -54,8 +66,14 @@ for i in range(len(resp)):
 for i in range(len(answers_with_tags)):
     answers.append("<START> " + answers_with_tags[i] + " <END>")
 
+palabras = set()
+palabras.add('start')
+palabras.add('end')
+palabras = palabras.union(target_characters)
+palabras = palabras.union(input_characters)
+palabras = sorted(list(palabras))
 tokenizer = preprocessing.text.Tokenizer()
-tokenizer.fit_on_texts(questions + answers)
+tokenizer.fit_on_texts(palabras)
 VOCAB_SIZE = len(tokenizer.word_index) + 1
 print("vocab size : {}".format(VOCAB_SIZE))
 
