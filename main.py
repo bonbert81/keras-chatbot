@@ -160,7 +160,7 @@ history = model.fit(
     validation_split=0.3,
     verbose=1,
     batch_size=32,
-    epochs=150,
+    epochs=110,
 )
 
 # print(history.history['loss'])
