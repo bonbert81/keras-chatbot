@@ -162,8 +162,8 @@ decoder_model = models.Model(
     [decoder_outputs] + decoder_states)
 
 
-def decode_sequence(input_seq):
-    states_value = encoder_model.predict(input_seq)
+def decode_sequence(input_seq_encoded):
+    states_value = encoder_model.predict(input_seq_encoded)
 
     target_seq = np.zeros((1, 1))
     target_seq[0, 0] = tokenizer.word_index["start"]
