@@ -1,20 +1,24 @@
 import json
+import os
+
+import spacy
+
+output_dir = os.getcwd()
+modelo_spacy = "modelo"
+print('curr {}'.format(modelo_spacy))
+
+if os.name != 'nt':
+    spacy.prefer_gpu()
+nlp = spacy.load(modelo_spacy)  # Loads the spacy en model into a python object
 
 
 def listado_palabras(doc):
-    """
-            Funcion para crea/home/felixal/PycharmProjects/laborabotr un arreglo de palabras de un documento
-/home/felixal/PycharmProjects/laborabot
-            Parameters:
-               doc (): Documento de spacy.
-            """
+    """Buscar intenciones de un Doc y un listado de palabras de un texto"""
+
     palabras = {}
     for token in doc:
         palabras[token.text] = token.i
     return palabras
-
-
-"""Buscar intenciones de un Doc y un listado de palabras de un texto"""
 
 
 def buscar_intenciones(doc, palabras):
@@ -55,3 +59,7 @@ def entidades(doc):
             tokens.append(obj)
     tokens.sort()
     return tokens
+
+
+def separar_oracion_tokens(oracion: str):
+    return [token.text for token in nlp(oracion)]
