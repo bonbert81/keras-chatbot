@@ -77,12 +77,13 @@ def telegram():
             chat = Chat(first_name, '', chat_id)
             db.session.add(chat)
             db.session.commit()
+            chat = Chat.query.filter_by(chat_platform_id=chat_id).first()
 
-        textoOriginal = str(message).lower()
-        res = predecir(textoOriginal)
-        pregunta = Pregunta(textoOriginal, res, chat_id)
+        texto_original = str(message).lower()
+        res = predecir(texto_original)
+        pregunta = Pregunta(texto_original, res, chat_id)
         db.session.add(pregunta)
-        db.session.commit()
+        # db.session.commit()
 
         chat.preguntas.append(pregunta)
         db.session.add(chat)
@@ -90,7 +91,8 @@ def telegram():
 
         send_message(res, chat_id)
     except Exception as error:
-        send_message('Hubo un error procesando tu mensaje, intenta de nuevo mas tarde', chat_id)
+        app.logger.exception(error)
+        send_message('Hubo un error procesando tu mensaje, intenta de nuevo mas tarde ', chat_id)
 
     return ''
 

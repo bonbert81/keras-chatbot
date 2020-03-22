@@ -51,6 +51,7 @@ def visualizar(texto: str):
 def predecir(oracion: str):
     input_seq = str_to_tokens(oracion)
     decoded_sentence = decode_sequence(input_seq)
+    decoded_sentence.replace('end', '')
 
     print('original: {} resp: {}'.format(oracion, decoded_sentence))
     return decoded_sentence
