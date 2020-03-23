@@ -3,11 +3,14 @@ from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 from processText import predecir
+from twilio.twiml.messaging_response import MessagingResponse
 
 # from model import Chat, Pregunta
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://bot:laborabot.123@localhost/laborabot'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
 db = SQLAlchemy(app)
 TELEGRAM_URL = "https://api.telegram.org/bot"
 TELEGRAM_BOT_TOKEN = "899009162:AAH2y2rKp_8JopS3bULo6NW1SPMrwpuALdk"
@@ -108,6 +111,19 @@ def send_message(message, chat_id):
     requests.post(
         f"{TELEGRAM_URL}{TELEGRAM_BOT_TOKEN}/sendMessage", data=data
     )
+
+
+@app.route('/webhooks/whatsapp', methods=['POST'])
+def whatsapp():
+    incoming_msg = request.values.get('Body', '').lower()
+    data = request.json
+
+    print('body: {} texto: {}'.format(data, incoming_msg))
+
+    resp = MessagingResponse()
+    msg = resp.message()
+    msg.body(predecir(incoming_msg))
+    return str(resp)
 
 
 if __name__ == '__main__':

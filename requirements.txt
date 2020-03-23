@@ -41,3 +41,5 @@ pyaml
 spacy
 flask-sqlalchemy
 mysqlclient
+twilio
+Flask-Migrate

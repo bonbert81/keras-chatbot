@@ -50,10 +50,14 @@ def visualizar(texto: str):
 
 def predecir(oracion: str):
     input_seq = str_to_tokens(oracion)
-    decoded_sentence = decode_sequence(input_seq)
-    decoded_sentence.replace('end', '')
+    decoded_sentence = decode_sequence(input_seq).strip()
+    print('res org: {}'.format(decoded_sentence))
+    decoded_sentence = decoded_sentence.replace(" end", ".")
+    print('res forma: {}'.format(decoded_sentence))
 
-    print('original: {} resp: {}'.format(oracion, decoded_sentence))
+    decoded_sentence = decoded_sentence.capitalize()
+    print('res cap: {}'.format(decoded_sentence))
+
     return decoded_sentence
 
 # for seq_index in range(100):
