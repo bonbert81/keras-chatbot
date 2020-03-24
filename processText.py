@@ -1,5 +1,4 @@
 import random
-import random
 import re
 
 from laborabot import str_to_tokens, decode_sequence
@@ -51,9 +50,7 @@ def visualizar(texto: str):
 def predecir(oracion: str):
     input_seq = str_to_tokens(oracion)
     decoded_sentence = decode_sequence(input_seq).strip()
-    print('res org: {}'.format(decoded_sentence))
     decoded_sentence = decoded_sentence.replace(" end", ".")
-    print('res forma: {}'.format(decoded_sentence))
 
     decoded_sentence = decoded_sentence.capitalize()
     print('res cap: {}'.format(decoded_sentence))

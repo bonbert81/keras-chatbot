@@ -43,3 +43,7 @@ flask-sqlalchemy
 mysqlclient
 twilio
 Flask-Migrate
+python-dateutil
+dateparser
+parsedatetime
+durations-nlp
