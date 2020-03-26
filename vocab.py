@@ -13,7 +13,7 @@ DESPEDIDAS_BOT = ["Adios", "Hasta luego", "Hasta la vista"]
 
 MESES = [month for month in calendar.month_name[1:]]
 
-escala_fecha = [{"month": ["mes", "meses"]}, {"day": ["dia", "día"]}, {"year": ["año", "años"]},
+escala_fecha = [{"month": ["mes", "meses"]}, {"day": ["dia", "día", "dias", "días"]}, {"year": ["año", "años"]},
                 {"week": ["semana", "semanas"]}
                 ]
 
