@@ -29,15 +29,14 @@ MESES = [month for month in calendar.month_name[1:]]
 
 print('meses: {}'.format(MESES))
 
-fecha = dateparser.parse("1 enero", languages=["es"])
+fecha = dateparser.parse("Estoy trabajando desde diciembre 2018", languages=["es"])
 print('fecha: {}'.format(fecha))
 
 c = pdt.Constants(localeID="es", usePyICU=False)
 p = pdt.Calendar(c)
 
-time_struct, parse_status = p.parse("1 enero")
-
-print('fecha2 : {}'.format(datetime(*time_struct[:6])))
+time_struct, parse_status = p.parse("Estoy trabajando desde diciembre 2018")
+print('fecha2 : {} status {}'.format(datetime(*time_struct[:6]), parse_status))
 
 for time_str in ['1 segundo', '2 minutos', '3 horas', '5 semanas', '6 meses', '7 años']:
     formato_fecha = buscar_escala(time_str)
@@ -52,7 +51,7 @@ oraciones = [
 
     "Cuanto me coresponde de vacaciones gano 10,435 mensuales y tengo 12 meses trabajando",
 
-    "Si gano 2,105 semanales y labore 8 meses y 12 días cuanto me corresponde de vacaciones"
+    "Si gano 2,105 semanales y labore 8 meses con 12 días, cuanto me corresponde de vacaciones"
 ]
 
 ruler = EntityRuler(nlp)

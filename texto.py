@@ -2,6 +2,7 @@ import json
 import os
 
 import spacy
+from spacy.pipeline import EntityRuler
 
 output_dir = os.getcwd()
 modelo_spacy = "modelo"
@@ -11,6 +12,21 @@ if os.name != 'nt':
     spacy.prefer_gpu()
 nlp = spacy.load(modelo_spacy)  # Loads the spacy en model into a python object
 
+ruler = EntityRuler(nlp)
+patterns = [
+    {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "mensuales"}]},
+    {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "pesos"}]},
+    {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "semanales"}]},
+    {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "anuales"}]},
+    {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "anual"}]},
+    {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "quincenal"}]},
+    {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "mensual"}]},
+    {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "diario"}]},
+
+]
+
+ruler.add_patterns(patterns)
+nlp.add_pipe(ruler)
 
 def listado_palabras(doc):
     """Buscar intenciones de un Doc y un listado de palabras de un texto"""

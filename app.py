@@ -2,7 +2,7 @@ import requests
 from flask import Flask, request
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
-from processText import predecir, intent
+from processText import predecir, intent, calcular_vacaciones
 from twilio.twiml.messaging_response import MessagingResponse
 
 # from model import Chat, Pregunta
@@ -83,8 +83,7 @@ def telegram():
             chat = Chat.query.filter_by(chat_platform_id=chat_id).first()
 
         texto_original = str(message).lower()
-        intencion = intent(texto_original)
-        print('intencion: {}'.format(intencion))
+        calcular_vacaciones(texto_original)
         res = predecir(texto_original)
         pregunta = Pregunta(texto_original, res, chat_id)
         db.session.add(pregunta)
