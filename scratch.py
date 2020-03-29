@@ -51,7 +51,9 @@ oraciones = [
 
     "Cuanto me coresponde de vacaciones gano 10,435 mensuales y tengo 12 meses trabajando",
 
-    "Si gano 2,105 semanales y labore 8 meses con 12 días, cuanto me corresponde de vacaciones"
+    "Si gano 2,105 semanales y labore 8 meses con 12 días, cuanto me corresponde de vacaciones",
+    "1.	Sandra ha trabajado continuamente por 02 años y gana RD$25,000 mensual.",
+    "2.	Valeria  trabajó 09 meses y ganaba RD$15,000 quincenal."
 ]
 
 ruler = EntityRuler(nlp)
@@ -64,6 +66,7 @@ patterns = [
     {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "quincenal"}]},
     {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "mensual"}]},
     {"label": "SALARIO", "pattern": [{"LIKE_NUM": True}, {"LOWER": "diario"}]},
+    {"label": "SALARIO", "pattern": [{"IS_ASCII": True}, {"LOWER": "quincenal"}]},
 
 ]
 

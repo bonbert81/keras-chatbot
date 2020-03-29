@@ -7,7 +7,7 @@ import parsedatetime as pdt
 from durations_nlp.duration import Duration
 
 from laborabot import decode_sequence, str_to_tokens
-from texto import buscar_intenciones, entidades, listado_palabras, nlp
+from texto import buscar_intenciones, entidades, listado_palabras, nlp, buscar_salario
 from vocab import DESPEDIDAS, DESPEDIDAS_BOT, SALUDOS, SALUDOS_BOT, buscar_escala
 
 c = pdt.Constants(localeID="es", usePyICU=False)
@@ -26,31 +26,31 @@ def intent(texto: str):
     mapa = {}
     saludo = re.search("|".join(SALUDOS), texto)
     despedida = re.search("|".join(DESPEDIDAS), texto)
-    if saludo:
-        obj = {"SALUDO": re.findall("|".join(SALUDOS), texto)}
-        print("saludo ", obj)
+    # if saludo:
+    #     obj = {"SALUDO": re.findall("|".join(SALUDOS), texto)}
+    #     print("saludo ", obj)
+    #
+    #     resp = [
+    #         w.replace("<obj>", re.findall("|".join(SALUDOS), texto).pop())
+    #         for w in SALUDOS_BOT
+    #     ]
+    #
+    #     tokens.append(resp[0])
+    #     mapa = {"saludo": resp[0]}
+    # elif despedida:
+    #     obj = {"DESPEDIDA": re.findall("|".join(DESPEDIDAS), texto)}
+    #     print("despedida ", obj)
+    #     tokens.append(random.choice(DESPEDIDAS_BOT))
+    #     mapa = {"despedida": random.choice(DESPEDIDAS_BOT)}
+    #
+    # else:
+    doc = nlp(texto)  # Creates a doc object
 
-        resp = [
-            w.replace("<obj>", re.findall("|".join(SALUDOS), texto).pop())
-            for w in SALUDOS_BOT
-        ]
+    palabras = listado_palabras(doc)
 
-        tokens.append(resp[0])
-        mapa = {"saludo": resp[0]}
-    elif despedida:
-        obj = {"DESPEDIDA": re.findall("|".join(DESPEDIDAS), texto)}
-        print("despedida ", obj)
-        tokens.append(random.choice(DESPEDIDAS_BOT))
-        mapa = {"despedida": random.choice(DESPEDIDAS_BOT)}
-
-    else:
-        doc = nlp(texto)  # Creates a doc object
-
-        palabras = listado_palabras(doc)
-
-        tokens = buscar_intenciones(doc, palabras)
-        ent = entidades(doc)
-        mapa = {"entidades": ent, "intenciones": tokens}
+    tokens = buscar_intenciones(doc, palabras)
+    ent = entidades(doc)
+    mapa = {"entidades": ent, "intenciones": tokens}
 
     return mapa
 
@@ -60,31 +60,17 @@ def visualizar(texto: str):
     return doc
 
 
-def buscar_salario(oracion: str) -> int:
-    """
-    Funcion para buscar el salario con spacy
-
-    :return: salario sino se encuentra -1.
-    """
-
-    salario = -1
-    doc = nlp(oracion)
-    for token in doc.ents:
-        print("texto {} entidad {}".format(token.text, token.label_))
-
-    return salario
-
-
 def calcular_vacaciones(oracion: str):
     """
     Función para calcular las vacaciones
     :param oracion: Texto original
-    :return: True para realizar calculos y no predecir una respuesta
+    :return: True para realizar calculos y no predecir una respuesta, dias si existe, salario si existe
     """
     intencion_oracion = intent(oracion)
     calcular = False
-    dias = -1
-    # list(set(listA) & set(listB))
+    meses = -1
+    salario = -1
+
     for item in calculo_vacaciones:
         for key in item:
             if key in intencion_oracion["entidades"]:
@@ -92,18 +78,32 @@ def calcular_vacaciones(oracion: str):
                     set(intencion_oracion["intenciones"]) & set(item[key])
                 )
                 if intenciones:
-                    dias = buscar_dias(oracion)
+                    meses = buscar_meses(oracion)
                     salario = buscar_salario(oracion)
                     print(
                         "key: {} intenciones: {}, intenciones encontradas {}, dias? {} salario? {}".format(
-                            key, item[key], intenciones, dias, salario
+                            key, item[key], intenciones, meses, salario
                         )
                     )
+                    calcular = True
                 else:
-                    print("no hay intentciones :(")
+                    print("no hay intenciones :(")
 
-    # if intencion_oracion:
-    return calcular
+    texto = ""
+    if salario != -1 and meses != -1:
+        if meses < 5:
+            texto = "Tiene menos de 5 meses trabajando, no le corresponde vacaciones."
+        elif meses <= 11:
+            vacaciones = round(meses * salario, 2)
+            texto = "Le corresponde {} días de disfrute con {} de pago".format(meses + 1, vacaciones)
+        elif meses < 60:
+            vacaciones = round(14 * salario, 2)
+            texto = "Le corresponde {} días de disfrute con {} de pago".format(14, vacaciones)
+        else:
+            vacaciones = round(18 * salario, 2)
+            texto = "Le corresponde {} días de disfrute con {} de pago y 4 de pago".format(14, vacaciones)
+
+    return calcular, texto
 
 
 def predecir(oracion: str):
@@ -117,40 +117,39 @@ def predecir(oracion: str):
     return decoded_sentence
 
 
-def buscar_dias(oracion: str) -> int:
+def buscar_meses(oracion: str) -> int:
     """
-    Funcion para calcular los dias de un string
+    Funcion para calcular los meses de un string
 
-    :return: dias si existe, sino -1 
+    :return: meses si existe, sino -1
     """
     formato_fecha = buscar_escala(oracion)
     print("fecha 1 calculada {}".format(formato_fecha))
 
     if formato_fecha is not None:
         duracion = Duration(formato_fecha)
-        return int(duracion.to_days())
+        return int(duracion.to_months())
 
     time_struct, parse_status = p.parse(oracion)
     fecha2 = datetime(*time_struct[:6])
     print("fecha 2 calculada {}".format(fecha2))
 
     if parse_status is 1:
-        dias2 = calcular_dias(fecha2, datetime.utcnow())
+        dias2 = calcular_meses(fecha2, datetime.utcnow())
         return dias2
 
     fecha = dateparser.parse(oracion, languages=["es"])
     print("fecha 3 calculada {}".format(fecha))
 
     if fecha is not None:
-        dias = calcular_dias(fecha, datetime.utcnow())
+        dias = calcular_meses(fecha, datetime.utcnow())
         return dias
 
     return -1
 
 
-def calcular_dias(d1, d2):
-    return abs((d2 - d1).days)
-
+def calcular_meses(d1, d2):
+    return abs((d2 - d1).month)
 
 # for seq_index in range(100):
 #     # Take one sequence (part of the training set)

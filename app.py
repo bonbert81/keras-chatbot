@@ -83,15 +83,20 @@ def telegram():
             chat = Chat.query.filter_by(chat_platform_id=chat_id).first()
 
         texto_original = str(message).lower()
-        calcular_vacaciones(texto_original)
-        res = predecir(texto_original)
-        pregunta = Pregunta(texto_original, res, chat_id)
-        db.session.add(pregunta)
-        # db.session.commit()
+        realizar_calculo, vacaciones = calcular_vacaciones(texto_original)
+        if not realizar_calculo:
+            res = predecir(texto_original)
 
-        chat.preguntas.append(pregunta)
-        db.session.add(chat)
-        db.session.commit()
+            pregunta = Pregunta(texto_original, res, chat_id)
+            db.session.add(pregunta)
+            # db.session.commit()
+
+            chat.preguntas.append(pregunta)
+            db.session.add(chat)
+            db.session.commit()
+        else:
+            res = vacaciones
+            pass
 
         send_message(res, chat_id)
     except Exception as error:
