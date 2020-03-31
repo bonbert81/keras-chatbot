@@ -1,4 +1,6 @@
-import random
+import re
+from datetime import datetime
+
 import re
 from datetime import datetime
 
@@ -8,7 +10,7 @@ from durations_nlp.duration import Duration
 
 from laborabot import decode_sequence, str_to_tokens
 from texto import buscar_intenciones, entidades, listado_palabras, nlp, buscar_salario
-from vocab import DESPEDIDAS, DESPEDIDAS_BOT, SALUDOS, SALUDOS_BOT, buscar_escala
+from vocab import DESPEDIDAS, SALUDOS, buscar_escala
 
 c = pdt.Constants(localeID="es", usePyICU=False)
 p = pdt.Calendar(c)
@@ -95,13 +97,13 @@ def calcular_vacaciones(oracion: str):
             texto = "Tiene menos de 5 meses trabajando, no le corresponde vacaciones."
         elif meses <= 11:
             vacaciones = round(meses * salario, 2)
-            texto = "Le corresponde {} días de disfrute con {} de pago".format(meses + 1, vacaciones)
+            texto = "Le corresponde {} días de disfrute con ${} de pago".format(meses + 1, vacaciones)
         elif meses < 60:
             vacaciones = round(14 * salario, 2)
-            texto = "Le corresponde {} días de disfrute con {} de pago".format(14, vacaciones)
+            texto = "Le corresponde {} días de disfrute con ${} de pago".format(14, vacaciones)
         else:
             vacaciones = round(18 * salario, 2)
-            texto = "Le corresponde {} días de disfrute con {} de pago y 4 de pago".format(14, vacaciones)
+            texto = "Le corresponde {} días de disfrute y ${} de pago".format(14, vacaciones)
 
     return calcular, texto
 
